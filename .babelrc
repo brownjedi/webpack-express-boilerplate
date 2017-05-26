@@ -1,6 +1,6 @@
 // in the dev mode, we make "modules": false for `es2015` to take advantage of webpack 2.0 treeshaking functionality
 {
-	"presets": [["es2015",  { "modules": false }], "stage-0"],
+	"presets": [["env",  { "modules": false }]],
 	"plugins": [
 		"transform-runtime",
 		"transform-object-rest-spread",
@@ -8,7 +8,7 @@
 	],
 	"env": {
 		"test": {
-			"presets": ["es2015", "stage-0"],
+			"presets": ["env"],
 			"comments": true,
 			"sourceMaps": "inline",
 			"plugins": ["istanbul", [
