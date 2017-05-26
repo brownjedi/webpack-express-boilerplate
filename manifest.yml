@@ -3,8 +3,8 @@ applications:
   memory: 256M
   instances: 1
   domain: mybluemix.net
-  name: typescript-webpack-express-boilerplate
-  host: typescript-webpack-express-boilerplate
+  name: webpack-express-boilerplate
+  host: webpack-express-boilerplate
   disk_quota: 1024M
   env:
     NODE_ENV: production

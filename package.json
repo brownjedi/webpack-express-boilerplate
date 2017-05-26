@@ -1,5 +1,5 @@
 {
-  "name": "typescript-webpack-express-boilerplate",
+  "name": "webpack-express-boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "build/server.js",
@@ -13,7 +13,7 @@
     "clean:coverage": "rimraf coverage",
     "build:server": "cross-env NODE_ENV=production webpack",
     "build": "npm-run-all clean:build build:server",
-    "dev": "npm run clean:build && cross-env NODE_ENV=development DEBUG=typescript-webpack-express-boilerplate* webpack --watch",
+    "dev": "npm run clean:build && cross-env NODE_ENV=development DEBUG=webpack-express-boilerplate* webpack --watch",
     "start": "cross-env NODE_ENV=production node build/server.js"
   },
   "engines": {
