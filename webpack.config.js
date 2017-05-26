@@ -1,4 +1,4 @@
-/* eslint max-len: 0 */
+/* eslint max-len: 0, no-nested-ternary: 0 */
 const webpack            = require('webpack')
 const WebpackShellPlugin = require('webpack-shell-plugin')
 const CopyWebpackPlugin  = require('copy-webpack-plugin')
@@ -6,13 +6,26 @@ const nodeExternals      = require('webpack-node-externals')
 const path               = require('path')
 
 const isProd      = process.env.NODE_ENV === 'production'
+const isDev       = process.env.NODE_ENV === 'development'
+const isTest      = process.env.NODE_ENV === 'test'
 
 const SRC_DIR     = path.resolve(__dirname, 'src')
 const MODULE_DIR  = path.resolve(__dirname, 'node_modules')
 const BUILD_DIR   = path.resolve(__dirname, 'build')
 const INDEX_ENTRY = path.join(SRC_DIR, 'index.js')
-const OUTPUT_NAME = 'index.js'
+const OUTPUT_NAME = 'server.js'
 
+const DEV_PLUGINS = [
+	// "onBuildEnd" event fires only once after first build, rebuilds are
+	// not trigger "onBuildEnd", so nodemon works as intended
+	new WebpackShellPlugin({
+		onBuildEnd: [`nodemon ${path.join(BUILD_DIR, OUTPUT_NAME)} --watch ${BUILD_DIR}`]
+	})
+]
+
+const TEST_PLUGINS = []
+
+const PROD_PLUGINS = []
 
 const PLUGINS = [
 	new webpack.IgnorePlugin(/\.(css|less)$/),
@@ -33,14 +46,9 @@ const PLUGINS = [
 	})
 ]
 
-const DEV_PLUGINS = [
-	// "onBuildEnd" event fires only once after first build, rebuilds are
-	// not trigger "onBuildEnd", so nodemon works as intended
-	new WebpackShellPlugin({
-		onBuildEnd: [`nodemon ${path.join(BUILD_DIR, OUTPUT_NAME)} --watch ${BUILD_DIR}`]
-	})
-]
-const PROD_PLUGINS = []
+if (isDev) PLUGINS.push(...DEV_PLUGINS)
+if (isProd) PLUGINS.push(...PROD_PLUGINS)
+if (isTest) PLUGINS.push(...TEST_PLUGINS)
 
 module.exports = {
 	target: 'node',
@@ -49,8 +57,7 @@ module.exports = {
 	output: {
 		// The dir in which our bundle should be output.
 		path: BUILD_DIR,
-		filename: OUTPUT_NAME,
-		libraryTarget: 'commonjs2'
+		filename: OUTPUT_NAME
 	},
 	resolve: {
 		// These extensions are tried when resolving a file.
@@ -94,5 +101,5 @@ module.exports = {
 			}
 		]
 	},
-	plugins: PLUGINS.concat(isProd ? PROD_PLUGINS : DEV_PLUGINS)
+	plugins: PLUGINS
 }

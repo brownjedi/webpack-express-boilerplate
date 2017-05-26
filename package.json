@@ -2,18 +2,19 @@
   "name": "typescript-webpack-express-boilerplate",
   "version": "1.0.0",
   "description": "",
-  "main": "build/index.js",
+  "main": "build/server.js",
   "scripts": {
-    "test": "npm run eslint && cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node_modules/.bin/nyc --all node node_modules/.bin/ava --verbose",
+    "test": "npm run clean:build && cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 ava",
     "test:watch": "npm run test -- --watch",
-    "cover": "nyc npm run test",
+    "cover": "npm run clean:coverage && nyc npm run test",
     "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
     "eslint": "eslint .",
-    "clean": "rimraf build",
+    "clean:build": "rimraf build",
+    "clean:coverage": "rimraf coverage",
     "build:server": "cross-env NODE_ENV=production webpack",
-    "build": "npm-run-all clean build:server",
-    "dev": "cross-env NODE_ENV=development DEBUG=typescript-webpack-express-boilerplate* npm run clean && webpack --watch",
-    "start": "cross-env NODE_ENV=production node build/index.js"
+    "build": "npm-run-all clean:build build:server",
+    "dev": "npm run clean:build && cross-env NODE_ENV=development DEBUG=typescript-webpack-express-boilerplate* webpack --watch",
+    "start": "cross-env NODE_ENV=production node build/server.js"
   },
   "engines": {
     "node": "7.8.0",
@@ -28,6 +29,7 @@
     ],
     "failFast": true,
     "babel": "inherit",
+    "verbose": true,
     "require": [
       "babel-register",
       "./src/utils/setupTestEnv.js"
@@ -81,7 +83,6 @@
   },
   "devDependencies": {
     "ava": "^0.19.1",
-    "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-loader": "^7.0.0",
