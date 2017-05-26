@@ -1,0 +1,48 @@
+{
+  "parser": "babel-eslint",
+  "extends": [
+    "airbnb",
+    "plugin:ava/recommended"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "globals": {
+    "__DEV__": true,
+    "__PROD__": true
+  },
+  "ecmaFeatures": {
+    "defaultParams": true,
+    "jsx": true,
+    "modules": true,
+    "es6": true
+  },
+  "rules": {
+    "no-multi-spaces": [2, {
+      "exceptions": {
+        "VariableDeclarator": true,
+        "ImportDeclaration": true
+      }
+    }],
+    "indent": [2, "tab", {
+      "SwitchCase": 1
+    }],
+    "semi": [2, "never"],
+    "new-cap": [2, {
+      "properties": false
+    }],
+    "comma-dangle": [2, "never"],
+    "import/no-extraneous-dependencies": [0],
+    "import/no-unresolved": [0],
+    "import/extensions": [0],
+    "no-tabs": [0],
+    "no-console": ["error", {"allow": ["warn", "error", "log"]}],
+    "no-underscore-dangle": ["error", { "allowAfterThis": true, "allow": ["_id"]}]
+  },
+  "plugins": [
+    "ava"
+  ]
+}

@@ -1,0 +1,20 @@
+{
+	"presets": ["es2015", "stage-0"],
+	"plugins": [
+		["babel-root-import", {
+			"rootPathSuffix": "src",
+			"rootPathPrefix": "~"
+		}],
+		"transform-runtime",
+		["typecheck", { "disable": { "production": true } }],
+		"transform-object-rest-spread",
+		"transform-class-properties"
+	],
+	"env": {
+		"test": {
+			"comments": true,
+			"sourceMaps": "inline",
+			"plugins": ["istanbul"]
+		}
+	}
+}
