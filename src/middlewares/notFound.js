@@ -1,4 +1,4 @@
-import { NotFoundError } from '~/errors'
+import { NotFoundError } from 'errors'
 
 // catch 404 and forward it to error handler
 export default (req, res, next) => {

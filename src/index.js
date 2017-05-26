@@ -1,15 +1,15 @@
 /* eslint no-console: 0, global-require: 0 import/first: 0 */
 // Import envVars
-import '~/utils/envVars'
+import 'utils/envVars'
 // Import polyfills
-import '~/utils/polyfills'
+import 'utils/polyfills'
 
 import {
 	__TEST__,
 	__PROD__,
 	PORT,
 	FORCE_SSL
-}                       from '~/config'
+}                       from 'config'
 
 import express          from 'express'
 import expressValidator from 'express-validator'
@@ -22,7 +22,8 @@ import compression      from 'compression'
 import {
 	notFoundMiddleware,
 	errorHandlerMiddleware
-}                       from '~/middlewares'
+}                       from 'middlewares'
+import helloRoutes      from 'routes/hello.routes'
 
 const app = express()
 
@@ -62,7 +63,7 @@ if (__PROD__ && FORCE_SSL) {
 }
 
 // API routes
-app.get('/', (req, res) => res.send('Hello World...!!!'))
+app.use('/', helloRoutes)
 
 // 404 Handler for api routes
 app.use(notFoundMiddleware)

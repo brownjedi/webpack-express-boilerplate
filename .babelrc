@@ -1,20 +1,23 @@
+// in the dev mode, we make "modules": false for `es2015` to take advantage of webpack 2.0 treeshaking functionality
 {
-	"presets": ["es2015", "stage-0"],
+	"presets": [["es2015",  { "modules": false }], "stage-0"],
 	"plugins": [
-		["babel-root-import", {
-			"rootPathSuffix": "src",
-			"rootPathPrefix": "~"
-		}],
 		"transform-runtime",
-		["typecheck", { "disable": { "production": true } }],
 		"transform-object-rest-spread",
 		"transform-class-properties"
 	],
 	"env": {
 		"test": {
+			"presets": ["es2015", "stage-0"],
 			"comments": true,
 			"sourceMaps": "inline",
-			"plugins": ["istanbul"]
+			"plugins": ["istanbul", [
+				"babel-plugin-webpack-loaders",
+				{
+					"config": "webpack.config.ava.js",
+					"verbose": false
+				}
+			]]
 		}
 	}
 }

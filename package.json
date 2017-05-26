@@ -4,15 +4,15 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "test": "npm run eslint && cross-env NODE_ENV=test node_modules/.bin/nyc --all node --harmony-proxies node_modules/.bin/ava --verbose",
+    "test": "npm run eslint && cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node_modules/.bin/nyc --all node node_modules/.bin/ava --verbose",
     "test:watch": "npm run test -- --watch",
     "cover": "nyc npm run test",
     "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
     "eslint": "eslint .",
     "clean": "rimraf build",
-    "build:server": "cross-env NODE_ENV=production babel src --out-dir build --source-maps inline --copy-files",
+    "build:server": "cross-env NODE_ENV=production webpack",
     "build": "npm-run-all clean build:server",
-    "dev": "cross-env NODE_ENV=development cross-env DEBUG=salamander-backend* nodemon --watch src src/index.js --exec 'npm run eslint && node -r 'babel-register''",
+    "dev": "cross-env NODE_ENV=development DEBUG=typescript-webpack-express-boilerplate* npm run clean && webpack --watch",
     "start": "cross-env NODE_ENV=production node build/index.js"
   },
   "engines": {
@@ -63,7 +63,6 @@
   "license": "MIT",
   "dependencies": {
     "app-root-dir": "^1.0.2",
-    "axios": "^0.16.1",
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.23.0",
     "bluebird": "^3.5.0",
@@ -77,6 +76,7 @@
     "express-validator": "^3.2.0",
     "hpp": "^0.2.2",
     "morgan": "^1.8.2",
+    "source-map-support": "^0.4.15",
     "validator": "^7.0.0"
   },
   "devDependencies": {
@@ -84,15 +84,16 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
     "babel-plugin-istanbul": "^4.1.3",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-plugin-typecheck": "^3.9.0",
+    "babel-plugin-webpack-loaders": "^0.9.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.24.1",
-    "babel-root-import": "^4.1.8",
+    "copy-webpack-plugin": "^4.0.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.0.1",
     "eslint-loader": "^1.7.1",
@@ -104,6 +105,9 @@
     "npm-run-all": "^4.0.2",
     "nyc": "^10.3.2",
     "rimraf": "^2.6.1",
-    "supertest": "^3.0.0"
+    "supertest": "^3.0.0",
+    "webpack": "^2.6.1",
+    "webpack-node-externals": "^1.6.0",
+    "webpack-shell-plugin": "^0.5.0"
   }
 }
