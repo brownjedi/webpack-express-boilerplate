@@ -4,17 +4,19 @@
   "description": "",
   "main": "build/server.js",
   "scripts": {
-    "test": "npm run clean:build && cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 ava",
+    "test": "npm run clean:build && npm run flow && cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 ava",
     "test:watch": "npm run test -- --watch",
     "cover": "npm run clean:coverage && nyc npm run test",
     "check-coverage": "nyc check-coverage --statements 100 --branches 100 --functions 100 --lines 100",
     "eslint": "eslint .",
+    "flow": "flow",
     "clean:build": "rimraf build",
     "clean:coverage": "rimraf coverage",
     "build:server": "cross-env NODE_ENV=production webpack",
     "build": "npm-run-all clean:build build:server",
     "dev": "npm run clean:build && cross-env NODE_ENV=development DEBUG=webpack-express-boilerplate* webpack --watch",
-    "start": "cross-env NODE_ENV=production node build/server.js"
+    "start": "cross-env NODE_ENV=production node build/server.js",
+    "nodemon": "nodemon --watch build --exec '(npm run flow && node build/server.js) || exit 1'"
   },
   "engines": {
     "node": "7.8.0",
@@ -92,6 +94,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-plugin-webpack-loaders": "^0.9.0",
     "babel-preset-env": "^1.5.1",
+    "babel-preset-flow": "^6.23.0",
     "babel-register": "^6.24.1",
     "copy-webpack-plugin": "^4.0.1",
     "eslint": "^3.19.0",
@@ -101,6 +104,7 @@
     "eslint-plugin-import": "^2.3.0",
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
+    "flow-bin": "^0.47.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
     "nyc": "^10.3.2",

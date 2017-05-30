@@ -1,6 +1,7 @@
 // in the dev mode, we make "modules": false for `es2015` to take advantage of webpack 2.0 treeshaking functionality
+// in the test mode, we need "modules": true as ava uses them.
 {
-	"presets": [["env",  { "modules": false }]],
+	"presets": [["env",  { "modules": false }], "flow"],
 	"plugins": [
 		"transform-runtime",
 		"transform-object-rest-spread",
@@ -8,7 +9,7 @@
 	],
 	"env": {
 		"test": {
-			"presets": ["env"],
+			"presets": ["env", "flow"],
 			"comments": true,
 			"sourceMaps": "inline",
 			"plugins": ["istanbul", [

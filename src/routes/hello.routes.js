@@ -1,13 +1,18 @@
-import { Router } from 'express'
+// @flow
+import { Router, Request, Response } from 'express'
 
 const router = new Router()
 
-router.get('/', (req, res) => {
+function sayHello(name: string): string {
+	return `Hello ${name}`
+}
+
+router.get('/', (req: Request, res: Response) => {
 	res.send('Hello World')
 })
 
-router.get('/:id', (req, res) => {
-	res.send(`Hello ${req.params.id}`)
+router.get('/:id', (req: Request, res: Response) => {
+	res.send(sayHello(req.params.id))
 })
 
 export default router

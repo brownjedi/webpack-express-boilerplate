@@ -1,9 +1,9 @@
-/* eslint max-len: 0, no-nested-ternary: 0 */
-const webpack            = require('webpack')
-const WebpackShellPlugin = require('webpack-shell-plugin')
-const CopyWebpackPlugin  = require('copy-webpack-plugin')
-const nodeExternals      = require('webpack-node-externals')
-const path               = require('path')
+/* eslint max-len: 0, no-nested-ternary: 0, global-require: 0 */
+const webpack                 = require('webpack')
+const WebpackShellPlugin      = require('webpack-shell-plugin')
+const CopyWebpackPlugin       = require('copy-webpack-plugin')
+const nodeExternals           = require('webpack-node-externals')
+const path                    = require('path')
 
 const isProd      = process.env.NODE_ENV === 'production'
 const isDev       = process.env.NODE_ENV === 'development'
@@ -13,13 +13,13 @@ const SRC_DIR     = path.resolve(__dirname, 'src')
 const MODULE_DIR  = path.resolve(__dirname, 'node_modules')
 const BUILD_DIR   = path.resolve(__dirname, 'build')
 const INDEX_ENTRY = path.join(SRC_DIR, 'index.js')
-const OUTPUT_NAME = 'server.js'
 
 const DEV_PLUGINS = [
-	// "onBuildEnd" event fires only once after first build, rebuilds are
-	// not trigger "onBuildEnd", so nodemon works as intended
+	// "onBuildEnd" event fires only once after first build, rebuilds are not trigged on "onBuildEnd", so nodemon works as intended
+	// (npm run flow && node build/server.js) || exit 1 is done to ensure that we don't accidently close the nodemon process
+    // the `npm run nodemon` is automatically run inside webpack.config.js after the webpack has compiled successfully
 	new WebpackShellPlugin({
-		onBuildEnd: [`nodemon ${path.join(BUILD_DIR, OUTPUT_NAME)} --watch ${BUILD_DIR}`]
+		onBuildEnd: ['npm run nodemon']
 	})
 ]
 
@@ -57,7 +57,7 @@ module.exports = {
 	output: {
 		// The dir in which our bundle should be output.
 		path: BUILD_DIR,
-		filename: OUTPUT_NAME
+		filename: 'server.js'
 	},
 	resolve: {
 		// These extensions are tried when resolving a file.
