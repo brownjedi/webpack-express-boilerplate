@@ -77,7 +77,7 @@
     "debug": "^3.0.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
-    "express-validator": "^4.0.0",
+    "express-validator": "^5.1.2",
     "hpp": "^0.2.2",
     "morgan": "^1.8.2",
     "source-map-support": "^0.4.15",
