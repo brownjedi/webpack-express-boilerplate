@@ -19,7 +19,7 @@
     "nodemon": "nodemon --watch build --exec '(npm run flow && node build/server.js) || exit 1'"
   },
   "engines": {
-    "node": "7.8.0",
+    "node": "10",
     "npm": "4.2.0"
   },
   "ava": {
