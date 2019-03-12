@@ -80,7 +80,7 @@
     "express-validator": "^4.0.0",
     "hpp": "^0.2.2",
     "morgan": "^1.8.2",
-    "source-map-support": "^0.4.15",
+    "source-map-support": "^0.5.11",
     "validator": "^8.0.0"
   },
   "devDependencies": {
