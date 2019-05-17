@@ -76,7 +76,7 @@
     "cross-env": "^5.0.0",
     "debug": "^3.0.0",
     "dotenv": "^4.0.0",
-    "express": "^4.15.3",
+    "express": "4.16.4",
     "express-validator": "^4.0.0",
     "hpp": "^0.2.2",
     "morgan": "^1.8.2",
