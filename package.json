@@ -81,7 +81,7 @@
     "hpp": "^0.2.2",
     "morgan": "^1.8.2",
     "source-map-support": "^0.4.15",
-    "validator": "^8.0.0"
+    "validator": "^11.0.0"
   },
   "devDependencies": {
     "ava": "^0.20.0",
